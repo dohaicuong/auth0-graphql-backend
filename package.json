@@ -2,8 +2,15 @@
   "name": "backend",
   "license": "UNLICENSED",
   "dependencies": {
+    "apollo-server": "^2.13.1",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^1.8.0",
     "nexus": "0.21.0",
-    "nexus-plugin-prisma": "^0.8.0"
+    "nexus-plugin-jwt-auth": "^1.1.0",
+    "nexus-plugin-prisma": "^0.8.0",
+    "nexus-plugin-shield": "^0.1.2",
+    "node-fetch": "^2.6.0"
   },
   "scripts": {
     "format": "npx prettier --write './**/*.{ts,md}'",
@@ -17,6 +24,8 @@
     "trailingComma": "all"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.0",
+    "dotenv": "^8.2.0",
     "prettier": "^2.0.5"
   }
 }
