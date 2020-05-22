@@ -12,6 +12,12 @@ import getUserFromToken from './libs/getUserFromToken'
 import * as jwksClient from 'jwks-rsa'
 import { jwksUri, AUTH0_DOMAIN, AUTH0_CLIENT_ID } from './configs'
 
+import { AuthenticationClient } from 'auth0'
+const auth0 = new AuthenticationClient({
+  domain: AUTH0_DOMAIN,
+  clientId: AUTH0_CLIENT_ID
+})
+
 const client = jwksClient({ jwksUri })
 use(auth({
   // TODO remove app secret when they fix it
@@ -21,10 +27,11 @@ use(auth({
     if (!token) return null
 
     const auth0User: any = await getUserFromToken({ token, client, domain: AUTH0_DOMAIN, clientId: AUTH0_CLIENT_ID })
-      .catch(error => log.error(error))
+      .catch(error => { }) // log.error(error)
 
     return {
       raw: token,
+      auth0,
       ...auth0User,
     }
   }
@@ -42,9 +49,9 @@ const isAuthenticated = rule({ cache: 'contextual' })(
 )
 use(shield({
   rules: {
-    // Query: {
-    //   hello: isAuthenticated
-    // },
+    Query: {
+      me: isAuthenticated
+    },
     Mutation: {
 
     }

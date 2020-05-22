@@ -1,6 +1,8 @@
+import { AuthenticationClient } from "auth0"
 
 type Auth0Payload = {
   raw: string
+  auth0: AuthenticationClient
 
   iss: string
   sub: string
@@ -19,7 +21,7 @@ const tokenToPayload = async (tokenPromise: any): Promise<Auth0Payload> => {
   const token = ctxToken as unknown
   const auth0Payload = token as Auth0Payload
   const [identity, auth0id] = auth0Payload.sub.split('|')
-  
+
   return {
     ...auth0Payload,
     identity,
